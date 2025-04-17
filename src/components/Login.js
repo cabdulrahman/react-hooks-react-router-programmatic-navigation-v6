@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 function Login() {
-  //Access the login function from the outlet
+  // Access the login function passed as context
+  const login = useOutletContext();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,11 +14,13 @@ function Login() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  }
-  //create a login  function to handle the login
+  };
+
+  // Create a function that calls the login function when the form is submitted
   function handleLogin(e) {
     e.preventDefault();
-  }
+    login();
+  };
 
   return (
     <form onSubmit={handleLogin}>
@@ -39,11 +42,11 @@ function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-        />
+        />      
       </div>
       <button type="submit">Login</button>
-    </form>
+  </form>
   );
-}
+};
 
 export default Login;
